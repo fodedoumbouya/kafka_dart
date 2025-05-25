@@ -357,20 +357,16 @@ See the [`/example`](./example) folder for complete working examples:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
-
-**Stefano Amorelli**
-- Email: stefano@amorelli.tech
-- GitHub: [@stefanoamorelli](https://github.com/stefanoamorelli)
+Copyright 2025 © [Stefano Amorelli](https://amorelli.tech/)
 
 ## 🙏 Acknowledgments
 
-- Built on top of [librdkafka](https://github.com/confluentinc/librdkafka) - the high-performance C/C++ Kafka client
-- Inspired by Domain-Driven Design principles
-- Thanks to the Dart FFI team for excellent tooling
-- Thanks to the Kafka community for robust ecosystem
+- Built on top of [librdkafka](https://github.com/confluentinc/librdkafka) - the high-performance C/C++ Kafka client;
+- Inspired by Domain-Driven Design principles;
+- Thanks to the [Dart FFI](https://pub.dev/packages/ffi) contributors for excellent tooling;
+- Thanks to the [Kafka community](https://forum.confluent.io/) for robust ecosystem.
 
 ## 🔗 Links
 
