@@ -1,0 +1,11 @@
+output: lib/src/infrastructure/bindings/rdkafka_bindings.g.dart
+name: RdkafkaBindings
+description: Generated bindings for librdkafka
+headers:
+  entry-points:
+    - /usr/include/librdkafka/rdkafka.h # Fedora path
+llvm-path:
+  - /usr/lib64 # where libclang.so lives
+compiler-opts:
+  - "-I/usr/lib/gcc/x86_64-redhat-linux/14/include"
+  - "-I/usr/include"
