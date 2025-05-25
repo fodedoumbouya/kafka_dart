@@ -71,7 +71,6 @@ Future<void> main() async {
   // For real Kafka connectivity
   final producer = await KafkaFactory.createAndInitializeProducer(
     bootstrapServers: 'localhost:9092',
-    useMock: false, // Use real librdkafka FFI bindings
   );
 
   try {
@@ -98,7 +97,6 @@ Future<void> main() async {
   final consumer = await KafkaFactory.createAndInitializeConsumer(
     bootstrapServers: 'localhost:9092',
     groupId: 'my-consumer-group',
-    useMock: false, // Use real librdkafka FFI bindings
   );
 
   try {
@@ -272,7 +270,7 @@ final producer = await KafkaFactory.createAndInitializeProducer(
 ```dart  
 final producer = await KafkaFactory.createAndInitializeProducer(
   bootstrapServers: 'localhost:9092',
-  useMock: false, // Uses librdkafka FFI bindings
+  // Uses librdkafka FFI bindings by default
 );
 ```
 
