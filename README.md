@@ -34,9 +34,9 @@ Then run:
 dart pub get
 ```
 
-### Prerequisites for Real Kafka
+### Prerequisites
 
-To use real Kafka connectivity, install librdkafka on your system:
+You need to install librdkafka on your system:
 
 **Ubuntu/Debian:**
 ```bash
