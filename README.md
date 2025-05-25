@@ -1,13 +1,13 @@
 # Kafka Dart
 
-> ![IMPORTANT]  
-> **EXPERIMENTAL** - This package is in active development and might introduce breaking changes. Use with caution in production environments.
-
 [![Pub Version](https://img.shields.io/pub/v/kafka_dart.svg)](https://pub.dev/packages/kafka_dart)
 [![Dart SDK](https://img.shields.io/badge/Dart-3.8%2B-blue.svg)](https://dart.dev)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](LICENSE)
 [![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen.svg)](https://github.com/stefanoamorelli/kafka_dart)
 [![FFI Support](https://img.shields.io/badge/FFI-librdkafka-orange.svg)](https://github.com/confluentinc/librdkafka)
+
+> [!IMPORTANT]  
+> **EXPERIMENTAL** - This package is experimental and might introduce breaking changes. Use with caution in production environments.
 
 A high-performance Kafka client for Dart using `librdkafka` with _Domain-Driven Design_ architecture. Supports both mock implementations for testing and real Kafka connectivity via `FFI` bindings.
 
