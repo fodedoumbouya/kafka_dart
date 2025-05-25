@@ -6,18 +6,22 @@
 [![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)](https://github.com/stefanoamorelli/kafka_dart)
 [![FFI Support](https://img.shields.io/badge/FFI-librdkafka-orange.svg)](https://github.com/confluentinc/librdkafka)
 
-A high-performance Kafka client for Dart using librdkafka with Domain-Driven Design architecture. Supports both mock implementations for testing and real Kafka connectivity via FFI bindings.
+A high-performance Kafka client for Dart using `librdkafka` with _Domain-Driven Design_ architecture. Supports both mock implementations for testing and real Kafka connectivity via `FFI` bindings.
 
 ## 🚀 Features
 
-- **🔒 Type-safe**: Strong typing with value objects and domain entities
-- **🏗️ Clean Architecture**: Domain-Driven Design with layered architecture
-- **⚠️ Error Handling**: Comprehensive exception hierarchy with meaningful error messages
-- **🧪 Testable**: Clean separation of concerns enables easy unit testing with mocks
-- **⚡ High Performance**: Built on librdkafka FFI bindings for production use
-- **🎯 Simple API**: Easy-to-use factory methods and service classes
-- **🐳 Docker Ready**: Includes Docker Compose setup for local development
-- **📊 Full Coverage**: 98% test coverage with comprehensive test suite
+<img src="https://github.com/user-attachments/assets/37039b59-4c5c-42d7-bff6-28b021120b8c"
+     alt="dart-kafka" align="right" width="250">
+
+- **🔒 Type-safe**: Strong typing with value objects and domain entities  
+- **🏗️ Clean Architecture**: Domain-Driven Design with layered architecture  
+- **⚠️ Error Handling**: Comprehensive exception hierarchy with meaningful error messages  
+- **🧪 Testable**: Clean separation of concerns enables easy unit testing with mocks  
+- **⚡ High Performance**: Built on librdkafka FFI bindings for production use  
+- **🎯 Simple API**: Easy-to-use factory methods and service classes  
+- **🐳 Docker Ready**: Includes Docker Compose setup for local development  
+- **📊 Full Coverage**: 98 % test coverage with comprehensive test suite
+
 
 ## 📦 Installation
 
