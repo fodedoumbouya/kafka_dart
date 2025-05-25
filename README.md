@@ -2,7 +2,7 @@
 
 [![Pub Version](https://img.shields.io/pub/v/kafka_dart.svg)](https://pub.dev/packages/kafka_dart)
 [![Dart SDK](https://img.shields.io/badge/Dart-3.8%2B-blue.svg)](https://dart.dev)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](LICENSE)
 [![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)](https://github.com/stefanoamorelli/kafka_dart)
 [![FFI Support](https://img.shields.io/badge/FFI-librdkafka-orange.svg)](https://github.com/confluentinc/librdkafka)
 
@@ -17,7 +17,7 @@ A high-performance Kafka client for Dart using librdkafka with Domain-Driven Des
 - **⚡ High Performance**: Built on librdkafka FFI bindings for production use
 - **🎯 Simple API**: Easy-to-use factory methods and service classes
 - **🐳 Docker Ready**: Includes Docker Compose setup for local development
-- **📊 Full Coverage**: 95% test coverage with comprehensive test suite
+- **📊 Full Coverage**: 98% test coverage with comprehensive test suite
 
 ## 📦 Installation
 
@@ -199,7 +199,7 @@ The Kafka setup includes:
 
 ### Automated Testing
 ```bash
-# Run all unit tests (213 tests, 95% coverage)
+# Run all unit tests (213 tests, 98% coverage)
 make test
 
 # Generate coverage report  
@@ -239,7 +239,7 @@ docker exec -it kafka kafka-console-consumer --topic test-topic --from-beginning
 
 ## 📈 Coverage
 
-Current test coverage: **95%**
+Current test coverage: **98%**
 
 Coverage excludes:
 - **FFI bindings** (auto-generated from librdkafka)
