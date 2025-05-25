@@ -9,7 +9,6 @@ import 'package:kafka_dart/src/domain/exceptions/domain_exceptions.dart';
 
 class SimpleKafkaProducerRepository implements KafkaProducerRepository {
   bool _isInitialized = false;
-  late KafkaConfiguration _config;
 
   @override
   bool get isInitialized => _isInitialized;
@@ -19,7 +18,6 @@ class SimpleKafkaProducerRepository implements KafkaProducerRepository {
     if (_isInitialized) {
       throw ProducerException('Producer is already initialized');
     }
-    _config = configuration;
     _isInitialized = true;
   }
 
@@ -51,7 +49,6 @@ class SimpleKafkaProducerRepository implements KafkaProducerRepository {
 class SimpleKafkaConsumerRepository implements KafkaConsumerRepository {
   bool _isInitialized = false;
   bool _isSubscribed = false;
-  late KafkaConfiguration _config;
   List<Topic> _subscribedTopics = [];
 
   @override
@@ -65,7 +62,6 @@ class SimpleKafkaConsumerRepository implements KafkaConsumerRepository {
     if (_isInitialized) {
       throw ConsumerException('Consumer is already initialized');
     }
-    _config = configuration;
     _isInitialized = true;
   }
 
