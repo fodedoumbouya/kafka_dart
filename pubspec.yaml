@@ -1,6 +1,6 @@
 name: kafka_dart
 description: High-performance Kafka client for Dart using librdkafka with Domain-Driven Design architecture.
-version: 1.0.0-alpha
+version: 1.0.1-alpha
 homepage: https://github.com/stefanoamorelli/kafka_dart
 repository: https://github.com/stefanoamorelli/kafka_dart
 issue_tracker: https://github.com/stefanoamorelli/kafka_dart/issues

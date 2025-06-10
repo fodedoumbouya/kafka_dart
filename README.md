@@ -60,6 +60,12 @@ sudo dnf install librdkafka-devel
 brew install librdkafka
 ```
 
+And then generate the `ffi` bindings with:
+
+```bash
+dart run ffigen
+```
+
 ## 🚀 Quick Start
 
 ### Producer Example
