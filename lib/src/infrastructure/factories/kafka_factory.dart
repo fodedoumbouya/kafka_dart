@@ -7,7 +7,7 @@ import 'package:kafka_dart/src/domain/entities/kafka_configuration.dart';
 import 'package:kafka_dart/src/infrastructure/repositories/simple_kafka_repository.dart';
 import 'package:kafka_dart/src/infrastructure/repositories/rdkafka_producer_repository.dart';
 import 'package:kafka_dart/src/infrastructure/repositories/rdkafka_consumer_repository.dart';
-import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.dart';
+import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.g.dart';
 
 class KafkaFactory {
   static RdkafkaBindings? _bindings;

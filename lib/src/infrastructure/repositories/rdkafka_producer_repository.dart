@@ -5,7 +5,7 @@ import 'package:kafka_dart/src/domain/entities/kafka_message.dart';
 import 'package:kafka_dart/src/domain/entities/kafka_configuration.dart';
 import 'package:kafka_dart/src/domain/repositories/kafka_producer_repository.dart';
 import 'package:kafka_dart/src/domain/exceptions/domain_exceptions.dart';
-import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.dart';
+import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.g.dart';
 
 class RdKafkaProducerRepository implements KafkaProducerRepository {
   final RdkafkaBindings _bindings;

@@ -6,7 +6,7 @@ import 'package:kafka_dart/src/domain/entities/kafka_configuration.dart';
 import 'package:kafka_dart/src/domain/repositories/kafka_consumer_repository.dart';
 import 'package:kafka_dart/src/domain/exceptions/domain_exceptions.dart';
 import 'package:kafka_dart/src/domain/value_objects/topic.dart';
-import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.dart';
+import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.g.dart';
 
 class RdKafkaConsumerRepository implements KafkaConsumerRepository {
   final RdkafkaBindings _bindings;
