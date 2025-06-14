@@ -24,7 +24,7 @@ clean:
 
 # Generate FFI bindings
 generate:
-	dart run ffigen
+	dart run ffigen --config=ffigen.yaml
 
 # Start Kafka cluster
 kafka-up:
