@@ -29,7 +29,6 @@ Future<void> testRealProducer() async {
 }
 
 Future<void> main() async {
-  // testRealProducer();
   final consumer = await KafkaFactory.createAndInitializeConsumer(
     bootstrapServers: 'localhost:9094',
     groupId: 'browsing-consumer',
