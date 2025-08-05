@@ -1,9 +1,38 @@
 import 'package:kafka_dart/kafka_dart.dart';
 
+Future<void> testRealProducer() async {
+  print('🚀 Testing Kafka Dart with REAL Kafka Connection!');
+  final producer = await KafkaFactory.createAndInitializeProducer(
+    bootstrapServers: 'localhost:9094',
+    useMock: false, // Use REAL Kafka!
+  );
+
+  try {
+    for (int i = 0; i < 3; i++) {
+      await producer.sendMessage(
+        topic: 'browsing',
+        payload: 'Real message $i from Dart at ${DateTime.now()}',
+        key: 'real-key-$i',
+      );
+      print('  ✅ Sent real message $i to Kafka');
+    }
+
+    await producer.flush();
+    print('  ✅ Messages flushed to Kafka broker');
+  } catch (e) {
+    print('  ❌ Producer Error: $e');
+    rethrow;
+  } finally {
+    await producer.close();
+    print('  ✅ Producer closed');
+  }
+}
+
 Future<void> main() async {
+  // testRealProducer();
   final consumer = await KafkaFactory.createAndInitializeConsumer(
-    bootstrapServers: 'localhost:9092',
-    groupId: 'dart_consumer_group',
+    bootstrapServers: 'localhost:9094',
+    groupId: 'browsing-consumer',
     additionalProperties: {
       'client.id': 'dart_consumer_example',
       'auto.offset.reset': 'earliest',
@@ -12,8 +41,8 @@ Future<void> main() async {
 
   try {
     // Subscribe to topics
-    await consumer.subscribe(['test-topic']);
-    
+    await consumer.subscribe(['browsing']);
+
     print('Consumer subscribed to test-topic, waiting for messages...');
 
     // Poll for messages with timeout
@@ -21,7 +50,7 @@ Future<void> main() async {
       final message = await consumer.pollMessage(
         const Duration(seconds: 1),
       );
-      
+
       if (message != null) {
         print('Received message:');
         print('  Topic: ${message.topic.value}');
@@ -31,7 +60,7 @@ Future<void> main() async {
         print('  Timestamp: ${message.timestamp}');
         print('  Offset: ${message.offset}');
         print('---');
-        
+
         // Commit the offset
         await consumer.commitAsync();
       }
@@ -46,17 +75,17 @@ Future<void> main() async {
 // Alternative example using message stream
 Future<void> streamExample() async {
   final consumer = await KafkaFactory.createAndInitializeConsumer(
-    bootstrapServers: 'localhost:9092',
+    bootstrapServers: 'localhost:9094',
     groupId: 'dart_stream_group',
   );
 
   try {
     await consumer.subscribe(['test-topic']);
-    
+
     await for (final message in consumer.messageStream()) {
       print('Stream received: ${message.payload.value}');
       await consumer.commitAsync();
-      
+
       // Break after 10 messages for demo
       if (message.payload.value.contains('Message 9')) {
         break;

@@ -1,4 +1,5 @@
 import 'dart:ffi' as ffi;
+import 'dart:convert';
 import 'package:ffi/ffi.dart';
 
 import 'package:kafka_dart/src/domain/entities/kafka_message.dart';
@@ -6,6 +7,9 @@ import 'package:kafka_dart/src/domain/entities/kafka_configuration.dart';
 import 'package:kafka_dart/src/domain/repositories/kafka_consumer_repository.dart';
 import 'package:kafka_dart/src/domain/exceptions/domain_exceptions.dart';
 import 'package:kafka_dart/src/domain/value_objects/topic.dart';
+import 'package:kafka_dart/src/domain/value_objects/partition.dart';
+import 'package:kafka_dart/src/domain/value_objects/message_key.dart';
+import 'package:kafka_dart/src/domain/value_objects/message_payload.dart';
 import 'package:kafka_dart/src/infrastructure/bindings/rdkafka_bindings.g.dart';
 
 class RdKafkaConsumerRepository implements KafkaConsumerRepository {
@@ -65,7 +69,8 @@ class RdKafkaConsumerRepository implements KafkaConsumerRepository {
 
         if (result != rd_kafka_conf_res_t.RD_KAFKA_CONF_OK) {
           final error = _nativeUtf8ToString(errstr);
-          throw ConsumerException('Failed to set configuration ${entry.key}: $error');
+          throw ConsumerException(
+              'Failed to set configuration ${entry.key}: $error');
         }
       } finally {
         calloc.free(keyPtr);
@@ -105,7 +110,8 @@ class RdKafkaConsumerRepository implements KafkaConsumerRepository {
       throw ConsumerException('Topic list cannot be empty');
     }
 
-    final topicList = _bindings.rd_kafka_topic_partition_list_new(topics.length);
+    final topicList =
+        _bindings.rd_kafka_topic_partition_list_new(topics.length);
     if (topicList == ffi.nullptr) {
       throw ConsumerException('Failed to create topic partition list');
     }
@@ -174,13 +180,84 @@ class RdKafkaConsumerRepository implements KafkaConsumerRepository {
   }
 
   Future<KafkaMessage?> _parseMessage(ffi.Pointer message) async {
-    // This is a simplified implementation
-    // In a real implementation, you would parse the rd_kafka_message_t struct
-    // to extract topic, partition, key, payload, timestamp, and offset
-    
-    // For now, return null as this requires detailed struct parsing
-    // which would need the exact rd_kafka_message_t definition
-    return null;
+    final msg = message.cast<rd_kafka_message_s>().ref;
+
+    // Check for errors
+    if (msg.err != rd_kafka_resp_err_t.RD_KAFKA_RESP_ERR_NO_ERROR) {
+      // Handle error - for now we'll return null but could throw an exception
+      return null;
+    }
+
+    // Extract topic name
+    String topicName = '';
+    if (msg.rkt != ffi.nullptr) {
+      final topicNamePtr = _bindings.rd_kafka_topic_name(msg.rkt);
+      if (topicNamePtr != ffi.nullptr) {
+        topicName = _nativeUtf8ToString(topicNamePtr.cast<ffi.Char>());
+      }
+    }
+
+    // Extract partition
+    final partitionValue = msg.partition;
+
+    // Extract key
+    MessageKey messageKey;
+    if (msg.key != ffi.nullptr && msg.key_len > 0) {
+      final keyBytes = msg.key.cast<ffi.Uint8>().asTypedList(msg.key_len);
+      try {
+        final keyString = utf8.decode(keyBytes);
+        messageKey = MessageKey.create(keyString);
+      } catch (e) {
+        // If UTF-8 decoding fails, use hex representation
+        final keyString =
+            keyBytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join('');
+        messageKey = MessageKey.create(keyString);
+      }
+    } else {
+      messageKey = MessageKey.none();
+    }
+
+    // Extract payload
+    String payloadString = '';
+    if (msg.payload != ffi.nullptr && msg.len > 0) {
+      final payloadBytes = msg.payload.cast<ffi.Uint8>().asTypedList(msg.len);
+      try {
+        // Try to decode as UTF-8 string
+        payloadString = utf8.decode(payloadBytes);
+      } catch (e) {
+        // If UTF-8 decoding fails, represent as hex string
+        payloadString = payloadBytes
+            .map((b) => b.toRadixString(16).padLeft(2, '0'))
+            .join(' ');
+      }
+    }
+
+    // Extract timestamp
+    final timestampTypePtr = calloc<ffi.UnsignedInt>();
+    DateTime timestamp;
+    try {
+      final timestampMs = _bindings.rd_kafka_message_timestamp(
+          message.cast(), timestampTypePtr);
+      if (timestampMs >= 0) {
+        timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMs);
+      } else {
+        timestamp = DateTime.now(); // Fallback
+      }
+    } finally {
+      calloc.free(timestampTypePtr);
+    }
+
+    // Extract offset
+    final offset = msg.offset;
+
+    return KafkaMessage(
+      topic: Topic.create(topicName),
+      partition: Partition.create(partitionValue),
+      key: messageKey,
+      payload: MessagePayload.create(payloadString),
+      timestamp: timestamp,
+      offset: offset,
+    );
   }
 
   @override
